@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public class Slang {
 
     private ArrayList<Point> body;
-    Direction direction = Direction.RIGHT;
+    private Direction direction = Direction.RIGHT;
+    private int delay;
+    private int growthCounter;
 
     {
-        body = new ArrayList<Point>();
+        body = new ArrayList<>();
     }
 
     public void move() {
@@ -25,7 +27,7 @@ public class Slang {
         int x = 0;
         int y = 0;
 
-        switch (direction) {
+        switch (getDirection()) {
             case UP:
                 x = 0;
                 y = -1;
@@ -47,13 +49,17 @@ public class Slang {
                 
         }
         
-        body.add(0, new Point(getHead().x + x, getHead().y + y));
-        // delete tail
-        body.remove(body.size() - 1);
+        getBody().add(0, new Point(getHead().x + x, getHead().y + y));
+        
+        if (growthCounter <= 0) {
+            getBody().remove(getBody().size() - 1);
+        } else {
+            growthCounter--;
+        }
     }
 
     public Point getHead() {
-        return body.get(0);
+        return getBody().get(0);
     }
 
     /**
@@ -70,7 +76,45 @@ public class Slang {
         this.body = body;
     }
 
-    void setdirection(Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return the direction
+     */
+    public Direction getDirection() {
+        return direction;
+    }
+
+    /**
+     * @param direction the direction to set
+     */
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    /**
+     * @return the delay
+     */
+    public int getDelay() {
+        return delay;
+    }
+
+    /**
+     * @param delay the delay to set
+     */
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
+
+    /**
+     * @return the growthCounter
+     */
+    public int getGrowthCounter() {
+        return growthCounter;
+    }
+
+    /**
+     * @param growthCounter the growthCounter to set
+     */
+    public void setGrowthCounter(int growthCounter) {
+        this.growthCounter = growthCounter;
     }
 }
